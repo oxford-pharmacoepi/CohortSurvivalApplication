@@ -1,25 +1,13 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+# Study results
 
-# OmopStudyBuilder <a href="https://github.com/oxford-pharmacoepi/OmopStudyBuilder"><img src="man/figures/image.jfif" align="right" height="138" alt="OmopStudyBuilder website" /></a>
+The study writes one disclosure-controlled `summarised_result` CSV per data
+source to this directory. The file name follows this pattern:
 
-<!-- badges: start -->
+```text
+post_mi_beta_blocker_results_{cdm_name}_{date}.csv
+```
 
-[![R-CMD-check](https://github.com/oxford-pharmacoepi/OmopStudyBuilder/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/oxford-pharmacoepi/OmopStudyBuilder/actions/workflows/R-CMD-check.yaml)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/OmopStudyBuilder)](https://CRAN.R-project.org/package=OmopStudyBuilder)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Codecov test
-coverage](https://codecov.io/gh/oxford-pharmacoepi/OmopStudyBuilder/branch/main/graph/badge.svg)](https://app.codecov.io/gh/oxford-pharmacoepi/OmopStudyBuilder?branch=main)
-<!-- badges: end -->
-
-The goal of OmopStudyBuilder is to help you prepare study for network
-studies using the OMOP CDM. The package takes care of setting up a R
-project for your study with the default structure and generic code that
-would be used for most network studies. This then leaves you to add the
-code that is unique to your study.
-
-The package is highly opinionated and designed to align with the OxInfer
-study code checklist
-<https://oxford-pharmacoepi.github.io/Oxinfer/onboarding/code_review.html>
+Do not commit patient-level data. Only the aggregate output produced by
+`runStudy.R`, after local disclosure control has been applied, should be shared.
+Upload approved CSV files to the app in `studyShiny/` to explore them.

@@ -1,8 +1,15 @@
-# Load and validate the supplied concept sets ----
-source(here("codelist", "codelistCreation.R"))
+# Load the supplied concept sets ----
+mi_concept_set <- importCodelist(
+  here("codelist", "mi_concepts.csv"),
+  type = "csv"
+)
+beta_blocker_concept_set <- importCodelist(
+  here("codelist", "beta_blockers.csv"),
+  type = "csv"
+)
 
 # All MI events used to apply the target-cohort eligibility criteria ----
-cdm$all_mi_events <- CohortConstructor::conceptCohort(
+cdm$all_mi_events <- conceptCohort(
   cdm = cdm,
   conceptSet = mi_concept_set,
   name = "all_mi_events",
@@ -11,27 +18,27 @@ cdm$all_mi_events <- CohortConstructor::conceptCohort(
 )
 
 # Eligible MI target events ----
-cdm$mi_events <- CohortConstructor::copyCohorts(
+cdm$mi_events <- copyCohorts(
   cohort = cdm$all_mi_events,
   name = "mi_events"
 ) |>
-  CohortConstructor::requireAge(ageRange = c(18, Inf)) |>
-  CohortConstructor::requireInDateRange(
+  requireAge(ageRange = c(18, Inf)) |>
+  requireInDateRange(
     dateRange = as.Date(c("2012-01-01", NA))
   ) |>
-  CohortConstructor::requirePriorObservation(
+  requirePriorObservation(
     minPriorObservation = 365
   ) |>
-  CohortConstructor::requireCohortIntersect(
+  requireCohortIntersect(
     targetCohortTable = "all_mi_events",
     window = c(-28, -1),
     intersections = 0,
     targetEndDate = NULL
   ) |>
-  CohortConstructor::requireIsFirstEntry()
+  requireIsFirstEntry()
 
 # Beta-blocker outcome events ----
-cdm$beta_blocker_events <- CohortConstructor::conceptCohort(
+cdm$beta_blocker_events <- conceptCohort(
   cdm = cdm,
   conceptSet = beta_blocker_concept_set,
   name = "beta_blocker_events",
@@ -40,7 +47,7 @@ cdm$beta_blocker_events <- CohortConstructor::conceptCohort(
 )
 
 # Death competing events ----
-cdm$death_events <- CohortConstructor::deathCohort(
+cdm$death_events <- deathCohort(
   cdm = cdm,
   name = "death_events",
   subsetCohort = "mi_events"

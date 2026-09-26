@@ -20,6 +20,22 @@ myocardial infarction (MI). The study estimates:
 MI events are the target cohort. Beta-blocker exposure events are the outcome.
 The analysis is descriptive and does not estimate a treatment effect.
 
+This repository is the worked application example for the
+[CohortSurvival](https://darwin-eu.github.io/CohortSurvival/) R package. It
+shows a complete network-study workflow, from constructing OMOP CDM cohorts to
+exporting and interactively reviewing standardised aggregate results.
+
+## Study design
+
+- **Target:** the first eligible MI event in an adult after 365 days of prior
+  observation, with no MI in the preceding 28 days.
+- **Outcome:** the first recorded beta-blocker exposure after MI. Previous
+  beta-blocker use is allowed, so the outcome washout is intentionally zero.
+- **Competing event:** death.
+- **Follow-up:** 365 days after the MI event.
+- **Analyses:** a single-event survival analysis and a competing-risk analysis,
+  stored as separate results.
+
 ---
 
 ## Repository organization

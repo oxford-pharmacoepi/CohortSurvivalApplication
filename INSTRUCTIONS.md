@@ -26,10 +26,11 @@ The study shiny app is located in the `studyShiny` folder and is used to explore
 
 ### Steps
 
-1)  Ensure your study results are placed in the `results` folder
-2)  Open the project in RStudio
-3)  Restore the R environment using `renv::restore()`
-4)  Run the app using `shiny::runApp()`
+1)  Open `studyShiny/studyShiny.Rproj` in RStudio.
+2)  Install the `shiny` and `OmopViewer` packages if needed.
+3)  Run the app using `shiny::runApp()`.
+4)  Upload one or more approved aggregate result CSVs produced by the study,
+    select them, and click **Bind data and load app**.
 
 ---
 

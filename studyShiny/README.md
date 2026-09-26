@@ -1,7 +1,17 @@
-# Study Shiny App
+# Study Shiny app
 
-This folder is a scaffold for a Shiny app used to explore study results.
+This app explores the aggregate results from the post-MI beta-blocker study.
+It uses OmopViewer's supported upload workflow, with the single-event and
+competing-risk results kept in their own result panels. The optional global
+summary tab is disabled.
 
-## Instructions
+## Run locally
 
-For detailed instructions on how to run the study shiny app, please see the [INSTRUCTIONS.md](../INSTRUCTIONS.md) file in the root directory of this repository.
+1. Install `shiny` and `OmopViewer`.
+2. Open `studyShiny.Rproj` in RStudio.
+3. Run `shiny::runApp()`.
+4. Upload one or more disclosure-controlled CSVs produced by `studyCode/runStudy.R`.
+5. Select the files and click **Bind data and load app**.
+
+The app does not accept or retain patient-level data. For the complete study
+workflow, see [INSTRUCTIONS.md](../INSTRUCTIONS.md).

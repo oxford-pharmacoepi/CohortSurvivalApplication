@@ -5,7 +5,8 @@
 .Ruserdata
 
 # Study outputs (don't commit results data)
-results/**/*.csv
+studyCode/Results/*.csv
+studyShiny/results/*.csv
 
 # renv library (only commit lockfile)
 renv/library/

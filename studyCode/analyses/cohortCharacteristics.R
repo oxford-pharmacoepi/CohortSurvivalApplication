@@ -1,4 +1,4 @@
 results[["mi_characteristics"]] <-
-  CohortCharacteristics::summariseCharacteristics(
+  summariseCharacteristics(
     cohort = cdm$mi_events
   )

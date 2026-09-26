@@ -10,11 +10,13 @@ library(CohortConstructor)
 library(PatientProfiles)
 library(CohortCharacteristics)
 library(CohortSurvival)
+library(vctrs)
+library(cli)
 
 # Database details ----
 db_name <- "..."
 
-db <- DBI::dbConnect(
+db <- dbConnect(
   ...
 )
 
@@ -26,7 +28,7 @@ write_prefix <- "..."
 min_cell_count <- 5
 
 # Create the CDM reference ----
-cdm <- CDMConnector::cdmFromCon(
+cdm <- cdmFromCon(
   con = db,
   cdmSchema = cdm_schema,
   writeSchema = write_schema,
@@ -37,4 +39,4 @@ cdm <- CDMConnector::cdmFromCon(
 # Run the study ----
 source(here("runStudy.R"))
 
-CDMConnector::cdmDisconnect(cdm)
+cdmDisconnect(cdm)
