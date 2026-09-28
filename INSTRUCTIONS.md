@@ -26,11 +26,12 @@ The study shiny app is located in the `studyShiny` folder and is used to explore
 
 ### Steps
 
-1)  Open `studyShiny/studyShiny.Rproj` in RStudio.
-2)  Install the `shiny` and `OmopViewer` packages if needed.
+1)  Open `studyShiny/shiny/shiny.Rproj` in RStudio.
+2)  Install the packages loaded by `global.R` if needed.
 3)  Run the app using `shiny::runApp()`.
-4)  Upload one or more approved aggregate result CSVs produced by the study,
-    select them, and click **Bind data and load app**.
+4)  To refresh the app data, place an approved aggregate result CSV produced by
+    the study in `rawData/` and restart the app. The newest dated export is
+    prepared automatically; `rawData/preprocess.R` can also be run manually.
 
 ---
 

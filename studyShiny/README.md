@@ -1,17 +1,15 @@
 # Study Shiny app
 
-This app explores the aggregate results from the post-MI beta-blocker study.
-It uses OmopViewer's supported upload workflow, with the single-event and
-competing-risk results kept in their own result panels. The optional global
-summary tab is disabled.
+The complete OmopViewer-generated application is in `shiny/`. It presents the
+aggregate results from the post-MI beta-blocker study, with single-event and
+competing-risk results selected separately.
 
 ## Run locally
 
-1. Install `shiny` and `OmopViewer`.
-2. Open `studyShiny.Rproj` in RStudio.
-3. Run `shiny::runApp()`.
-4. Upload one or more disclosure-controlled CSVs produced by `studyCode/runStudy.R`.
-5. Select the files and click **Bind data and load app**.
+1. Open `studyShiny/shiny/shiny.Rproj` in RStudio.
+2. Install the packages loaded by `shiny/global.R` if needed.
+3. Run `shiny::runApp("shiny")` from the `studyShiny` directory, or
+   `shiny::runApp()` from inside `studyShiny/shiny`.
 
-The app does not accept or retain patient-level data. For the complete study
-workflow, see [INSTRUCTIONS.md](../INSTRUCTIONS.md).
+The app uses the prepared aggregate data in `shiny/data/`. See
+[INSTRUCTIONS.md](../INSTRUCTIONS.md) for the complete study workflow.
