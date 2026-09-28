@@ -9,8 +9,6 @@ color:
     black: '#000000'
   primary: '#16324f'
   background: '#f4f7fa'
-logo:
-  alt: CohortSurvival
 typography:
   base:
     family: Arial

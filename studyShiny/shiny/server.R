@@ -56,11 +56,7 @@ server <- function(input, output, session) {
   })
   getSummariseOmopSnapshotTable <- shiny::reactive({
     getSummariseOmopSnapshotData() |>
-      OmopSketch::tableOmopSnapshot(
-        header = input$summarise_omop_snapshot_table_header,
-        groupColumn = input$summarise_omop_snapshot_table_group_column,
-        hide = input$summarise_omop_snapshot_table_hide
-      )
+      OmopSketch::tableOmopSnapshot()
   })
   output$summarise_omop_snapshot_table <- gt::render_gt({
     getSummariseOmopSnapshotTable()
@@ -107,11 +103,7 @@ server <- function(input, output, session) {
   })
   getSummariseObservationPeriodTable <- shiny::reactive({
     getSummariseObservationPeriodData() |>
-      OmopSketch::tableObservationPeriod(
-        header = input$summarise_observation_period_table_header,
-        groupColumn = input$summarise_observation_period_table_group_column,
-        hide = input$summarise_observation_period_table_hide
-      )
+      OmopSketch::tableObservationPeriod()
   })
   output$summarise_observation_period_table <- gt::render_gt({
     getSummariseObservationPeriodTable()
@@ -373,16 +365,7 @@ server <- function(input, output, session) {
     shiny::bindEvent(
       input$survival_cdm_name,
       input$survival_target_cohort,
-      input$survival_reason,
-      input$survival_variable_level,
       input$survival_analysis_type,
-      input$survival_censor_on_cohort_exit,
-      input$survival_competing_outcome,
-      input$survival_follow_up_days,
-      input$survival_minimum_survival_days,
-      input$survival_outcome,
-      input$survival_outcome_date_variable,
-      input$survival_outcome_washout,
       ignoreInit = TRUE
     )
   shiny::observeEvent(updateButtons$survival, {
@@ -399,29 +382,13 @@ server <- function(input, output, session) {
   ## get survival data
   getSurvivalData <- shiny::eventReactive(input$update_survival, {
     data[["survival"]] |>
-      dplyr::filter(
-        .data$cdm_name %in% input$survival_cdm_name,
-        .data$variable_level %in% input$survival_variable_level
-      ) |>
+      dplyr::filter(.data$cdm_name %in% input$survival_cdm_name) |>
       omopgenerics::filterGroup(.data$target_cohort %in% input$survival_target_cohort) |>
-      omopgenerics::filterStrata(.data$reason %in% input$survival_reason) |>
-      omopgenerics::filterSettings(
-        .data$analysis_type %in% input$survival_analysis_type,
-        .data$censor_on_cohort_exit %in% input$survival_censor_on_cohort_exit,
-        .data$competing_outcome %in% input$survival_competing_outcome,
-        .data$follow_up_days %in% input$survival_follow_up_days,
-        .data$minimum_survival_days %in% input$survival_minimum_survival_days,
-        .data$outcome %in% input$survival_outcome,
-        .data$outcome_date_variable %in% input$survival_outcome_date_variable,
-        .data$outcome_washout %in% input$survival_outcome_washout
-      )
+      omopgenerics::filterSettings(.data$analysis_type %in% input$survival_analysis_type)
   })
   getSurvivalTableSurvival <- shiny::reactive({
     getSurvivalData() |>
-      CohortSurvival::tableSurvival(
-        timeScale = input$survival_table_survival_time_scale,
-        type = "gt"
-      )
+      CohortSurvival::tableSurvival(times = c(90, 180, 270, 365))
   })
   output$survival_table_survival <- gt::render_gt({
     getSurvivalTableSurvival()
@@ -434,9 +401,7 @@ server <- function(input, output, session) {
   )
   getSurvivalTableEvents <- shiny::reactive({
     getSurvivalData() |>
-      CohortSurvival::tableSurvivalEvents(
-        type = "gt"
-      )
+      CohortSurvival::tableSurvivalEvents()
   })
   output$survival_table_events <- gt::render_gt({
     getSurvivalTableEvents()
@@ -449,9 +414,7 @@ server <- function(input, output, session) {
   )
   getSurvivalTableAttrition <- shiny::reactive({
     getSurvivalData() |>
-      CohortSurvival::tableSurvivalAttrition(
-        type = "gt"
-      )
+      CohortSurvival::tableSurvivalAttrition()
   })
   output$survival_table_attrition <- gt::render_gt({
     getSurvivalTableAttrition()
@@ -465,11 +428,17 @@ server <- function(input, output, session) {
   getSurvivalPlotSurvival <- shiny::reactive({
     getSurvivalData() |>
       CohortSurvival::plotSurvival(
-        facet = input$survival_plot_survival_facet,
-        colour = input$survival_plot_survival_colour,
-        cumulativeFailure = input$survival_plot_survival_cumulative_failure,
-        logLog = input$survival_plot_survival_log_log,
-        timeScale = input$survival_plot_survival_time_scale
+        cumulativeFailure = identical(input$survival_analysis_type, "competing_risk"),
+        facet = if (identical(input$survival_plot_survival_facet, "cdm_name")) {
+          "cdm_name"
+        } else {
+          NULL
+        },
+        colour = if (isTRUE(input$survival_plot_survival_colour %in% c("variable", "cdm_name"))) {
+          input$survival_plot_survival_colour
+        } else {
+          NULL
+        }
       )
   })
   output$survival_plot_survival <- shiny::renderUI({

@@ -13,7 +13,7 @@ ui <- bslib::page_navbar(
     "Post-MI beta-blocker study"
   ),
   theme = bslib::bs_theme(brand = TRUE),
-  shiny::tags$style(HTML(
+  header = shiny::tags$style(HTML(
     ".sticky-top-btn {
       position: sticky;
       top: 0;
@@ -817,22 +817,6 @@ ui <- bslib::page_navbar(
           options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
         ),
         shinyWidgets::pickerInput(
-          inputId = "survival_reason",
-          label = "Reason",
-          choices = choices$survival_reason,
-          selected = selected$survival_reason,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_variable_level",
-          label = "Variable level",
-          choices = choices$survival_variable_level,
-          selected = selected$survival_variable_level,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
           inputId = "survival_analysis_type",
           label = "Analysis type",
           choices = stats::setNames(
@@ -845,62 +829,6 @@ ui <- bslib::page_navbar(
           ),
           selected = "single_event",
           multiple = FALSE
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_censor_on_cohort_exit",
-          label = "Censor on cohort exit",
-          choices = choices$survival_censor_on_cohort_exit,
-          selected = selected$survival_censor_on_cohort_exit,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_competing_outcome",
-          label = "Competing outcome",
-          choices = choices$survival_competing_outcome,
-          selected = selected$survival_competing_outcome,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_follow_up_days",
-          label = "Follow up days",
-          choices = choices$survival_follow_up_days,
-          selected = selected$survival_follow_up_days,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_minimum_survival_days",
-          label = "Minimum survival days",
-          choices = choices$survival_minimum_survival_days,
-          selected = selected$survival_minimum_survival_days,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_outcome",
-          label = "Outcome",
-          choices = choices$survival_outcome,
-          selected = selected$survival_outcome,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_outcome_date_variable",
-          label = "Outcome date variable",
-          choices = choices$survival_outcome_date_variable,
-          selected = selected$survival_outcome_date_variable,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-        ),
-        shinyWidgets::pickerInput(
-          inputId = "survival_outcome_washout",
-          label = "Outcome washout",
-          choices = choices$survival_outcome_washout,
-          selected = selected$survival_outcome_washout,
-          multiple = TRUE,
-          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
         ),
         position = "left"
       ),
@@ -924,21 +852,8 @@ ui <- bslib::page_navbar(
               ),
               class = "text-end"
             ),
-            bslib::layout_sidebar(
-              sidebar = bslib::sidebar(
-                shinyWidgets::pickerInput(
-                  inputId = "survival_table_survival_time_scale",
-                  label = "Time Scale",
-                  choices = c("days", "months", "years"),
-                  selected = "days",
-                  multiple = FALSE,
-                  options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-                ),
-                position = "right"
-              ),
-              gt::gt_output("survival_table_survival") |>
-                shinycssloaders::withSpinner()
-            )
+            gt::gt_output("survival_table_survival") |>
+              shinycssloaders::withSpinner()
           )
         ),
         bslib::nav_panel(
@@ -1028,39 +943,23 @@ ui <- bslib::page_navbar(
                   label = "Interactive",
                   value = TRUE
                 ),
-                shinyWidgets::materialSwitch(
-                  inputId = "survival_plot_survival_cumulative_failure",
-                  label = "Cumulative failure",
-                  value = TRUE
-                ),
-                shinyWidgets::materialSwitch(
-                  inputId = "survival_plot_survival_log_log",
-                  label = "Log-Log plot",
-                  value = FALSE
-                ),
-                shinyWidgets::pickerInput(
-                  inputId = "survival_plot_survival_time_scale",
-                  label = "Time Scale",
-                  choices = c("days", "months", "years"),
-                  selected = "days",
-                  multiple = FALSE,
-                  options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
-                ),
                 shinyWidgets::pickerInput(
                   inputId = "survival_plot_survival_facet",
                   label = "Facet",
-                  choices = c("cdm_name", "target_cohort", "reason", "time", "reason_id", "analysis_type", "censor_on_cohort_exit", "competing_outcome", "variable", "eventgap", "follow_up_days", "minimum_survival_days", "outcome", "outcome_date_variable", "outcome_washout"),
-                  selected = c("cdm_name", "analysis_type"),
-                  multiple = TRUE,
-                  options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
+                  choices = c("None" = "", "CDM name" = "cdm_name"),
+                  selected = "",
+                  multiple = FALSE
                 ),
                 shinyWidgets::pickerInput(
                   inputId = "survival_plot_survival_colour",
                   label = "Colour",
-                  choices = c("cdm_name", "target_cohort", "reason", "time", "reason_id", "analysis_type", "censor_on_cohort_exit", "competing_outcome", "variable", "eventgap", "follow_up_days", "minimum_survival_days", "outcome", "outcome_date_variable", "outcome_washout"),
-                  selected = c("variable"),
-                  multiple = TRUE,
-                  options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3")
+                  choices = c(
+                    "Outcome type" = "variable",
+                    "CDM name" = "cdm_name",
+                    "None" = ""
+                  ),
+                  selected = "variable",
+                  multiple = FALSE
                 ),
                 position = "right"
               ),

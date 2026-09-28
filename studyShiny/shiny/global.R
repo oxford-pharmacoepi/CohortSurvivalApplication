@@ -24,6 +24,7 @@ library(sortable)
 library(tidyr)
 library(visOmopResults)
 library(yaml)
+library(ellipsis)
 
 # preprocess data if it has not been done
 fileData <- file.path(getwd(), "data", "studyData.RData")
