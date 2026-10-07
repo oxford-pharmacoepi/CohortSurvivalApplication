@@ -28,9 +28,10 @@ exporting and interactively reviewing standardised aggregate results.
 ## Study design
 
 - **Target:** the first eligible MI event in an adult after 365 days of prior
-  observation, with no MI in the preceding 28 days.
-- **Outcome:** the first recorded beta-blocker exposure after MI. Previous
-  beta-blocker use is allowed, so the outcome washout is intentionally zero.
+  observation, with no MI in the preceding 28 days and no recorded
+  beta-blocker exposure in the preceding 365 days.
+- **Outcome:** the first recorded beta-blocker exposure after MI. The
+  beta-blocker washout is applied during target-cohort creation.
 - **Competing event:** death.
 - **Follow-up:** 365 days after the MI event.
 - **Analyses:** a single-event survival analysis and a competing-risk analysis,

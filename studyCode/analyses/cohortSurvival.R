@@ -4,8 +4,7 @@ results[["single_event_beta_blocker_after_mi"]] <-
     cdm = cdm,
     targetCohortTable = "mi_events",
     outcomeCohortTable = "beta_blocker_events",
-    # Prior exposure is intentionally allowed: the outcome is the first
-    # beta-blocker record after MI, not incident beta-blocker use.
+    # The 365-day beta-blocker washout is applied when mi_events is created.
     outcomeWashout = 0,
     followUpDays = 365,
     censorOnCohortExit = FALSE

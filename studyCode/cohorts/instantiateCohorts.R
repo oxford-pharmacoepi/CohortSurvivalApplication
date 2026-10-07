@@ -8,6 +8,15 @@ beta_blocker_concept_set <- importCodelist(
   type = "csv"
 )
 
+# Beta-blocker outcome events ----
+cdm$beta_blocker_events <- conceptCohort(
+  cdm = cdm,
+  conceptSet = beta_blocker_concept_set,
+  name = "beta_blocker_events",
+  table = "drug_exposure",
+  exit = "event_start_date"
+)
+
 # All MI events used to apply the target-cohort eligibility criteria ----
 cdm$all_mi_events <- conceptCohort(
   cdm = cdm,
@@ -35,16 +44,13 @@ cdm$mi_events <- copyCohorts(
     intersections = 0,
     targetEndDate = NULL
   ) |>
+  requireCohortIntersect(
+    targetCohortTable = "beta_blocker_events",
+    window = c(-365, -1),
+    intersections = 0,
+    targetEndDate = NULL
+  ) |>
   requireIsFirstEntry()
-
-# Beta-blocker outcome events ----
-cdm$beta_blocker_events <- conceptCohort(
-  cdm = cdm,
-  conceptSet = beta_blocker_concept_set,
-  name = "beta_blocker_events",
-  table = "drug_exposure",
-  exit = "event_start_date"
-)
 
 # Death competing events ----
 cdm$death_events <- deathCohort(

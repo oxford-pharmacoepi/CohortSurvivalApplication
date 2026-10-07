@@ -14,9 +14,9 @@ The single-event analysis estimates time from MI to the first subsequent
 beta-blocker exposure record. Its survival estimate is the probability of not
 yet having a beta-blocker record; it is not all-cause patient survival. The
 competing-risk analysis estimates beta-blocker cumulative incidence while
-treating death as a competing event. Prior beta-blocker exposure does not
-exclude a person from the analysis, so `outcomeWashout` is zero. Both analyses
-stop follow-up at 365 days after MI.
+treating death as a competing event. The 365-day beta-blocker washout is
+applied when the MI target cohort is created, while `outcomeWashout` remains
+zero in the analyses. Both analyses stop follow-up at 365 days after MI.
 
 The treatment definition describes recorded exposure, not confirmed dispensing
 or adherence. The results are descriptive and should not be interpreted as a
