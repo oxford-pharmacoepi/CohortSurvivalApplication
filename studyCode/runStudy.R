@@ -58,7 +58,8 @@ exportSummarisedResult(
   results,
   minCellCount = min_cell_count,
   fileName = "post_mi_beta_blocker_results_{cdm_name}_{date}.csv",
-  path = here("Results")
+  path = here("Results"),
+  logFile = NULL
 )
 
 cli_alert_success("Study finished")
