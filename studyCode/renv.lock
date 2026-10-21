@@ -284,7 +284,7 @@
     },
     "CohortSurvival": {
       "Package": "CohortSurvival",
-      "Version": "1.2.0",
+      "Version": "1.2.1",
       "Source": "Repository",
       "Title": "Estimate Survival from Common Data Model Cohorts",
       "Authors@R": "c( person(\"Kim\", \"López-Güell\", email = \"kim.lopez@spc.ox.ac.uk\",  role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-8462-8668\")), person(\"Edward\", \"Burn\", email = \"edward.burn@ndorms.ox.ac.uk\",  role = c(\"aut\"),  comment = c(ORCID = \"0000-0002-9286-1128\")),  person(\"Martí\", \"Català\", email = \"marti.catalasabate@ndorms.ox.ac.uk\",  role = c(\"aut\"),  comment = c(ORCID = \"0000-0003-3308-9905\")), person(\"Xintong\", \"Li\", email = \"xintong.li@ndorms.ox.ac.uk\",  role = c(\"aut\"),  comment = c(ORCID = \"0000-0002-6872-5804\")), person(\"Danielle\", \"Newby\", email = \"danielle.newby@ndorms.ox.ac.uk\",  role = c(\"aut\"),  comment = c(ORCID = \"0000-0002-3001-1478\")), person(\"Nuria\", \"Mercade-Besora\", , \"nuria.mercadebesora@ndorms.ox.ac.uk\",  role = c(\"aut\"),  comment = c(ORCID = \"0009-0006-7948-3747\")))",
@@ -315,6 +315,7 @@
         "testthat (>= 3.0.0)",
         "CodelistGenerator",
         "DBI",
+        "dbplyr",
         "roxygen2",
         "omock (>= 0.7.0)",
         "knitr",
